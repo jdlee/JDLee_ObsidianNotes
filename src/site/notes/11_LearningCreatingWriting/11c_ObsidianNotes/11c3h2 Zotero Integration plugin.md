@@ -4,9 +4,14 @@
 
 # Zotero Integration plugin links Zotero to Obsidian for literature notes and citations
 
-To configure this plugin first download and enable the Zotero Integration plugin for Obsidian. Also download and install the BetterBibtext plugin for Zotero. 
+The Zotero Integration plugin makes it possible to extract information from Zotero and insert it into Obsidian. 
+
+This requires that you download and install the BetterBibtext plugin for Zotero. Also enable "Quick Copy" in the Settings>>Export and ensure that the citation style is available in Settings>>Cite.
+
+To configure this plugin first download and enable the Zotero Integration plugin for Obsidian. 
 
 After enabling Zotero Integration, adjust its settings to enable its two main features: Insert citation into a note and creating a note based on Zotero data including highlighted text.
+
 Once configured you should be able to choose the Zotero Integration command from the command palette (Command P), which should activate the Zotero search bar. Selecting a reference from the Zotero search should produce either a citation in the current note or create a literature note.
 
 The resulting literature note should look something like this:
