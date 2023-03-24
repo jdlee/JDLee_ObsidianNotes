@@ -4,26 +4,32 @@
 
 # Zotero Integration plugin links Zotero to Obsidian for literature notes and citations
 
-To configure this plugin first download and enable the Zotero Integration plugin for Obsidian. Also download and install the BetterBibtext plugin for Zotero.
+To configure this plugin first download and enable the Zotero Integration plugin for Obsidian. Also download and install the BetterBibtext plugin for Zotero. 
 
 After enabling Zotero Integration, adjust its settings to enable its two main features: Insert citation into a note and creating a note based on Zotero data including highlighted text.
 Once configured you should be able to choose the Zotero Integration command from the command palette (Command P), which should activate the Zotero search bar. Selecting a reference from the Zotero search should produce either a citation in the current note or create a literature note.
 
 The resulting literature note should look something like this:
-![11c3h2 Zotero Integration plugin_image_1.png|300](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_1.png)
+![11c3h2 Zotero Integration plugin_image_1.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_1.png)
 
 The resulting literature notes can be tabulated, sorted, and filtered with dataview
 [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h2a Dataview for literature note summary\|11c3h2a Dataview for literature note summary]]
 
 ## Configure Zotero Integration settings for citations and literature notes
 The Zotero Integration plugin can be configured to insert citation information into a note, such as an article bibliography reference or a hyperlink to a Zotero entry.  It can also be configure to insert a new note containing meta data and highlighted text.
-### Configure to insert citation information into a note
-![11c3h2 Zotero Integration plugin_image_2.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_2.png)
-Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. _Human Factors_, _46_(1), 50–80.
 
-Configure to insert a citation key link to a reference in Zotero 
+### Configure to insert citation information into a note
+
+Configure to insert a citation key link to a reference in Zotero.  This is useful when you just want to add a citation and connection to a Zotero reference without creating an entire literature note for the reference.
 ![11c3h2 Zotero Integration plugin_image_2.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_2.png)
+This will insert a hyperlink in a note that connects to the Zotero reference:
 [Lee2004](zotero://select/library/items/JCW7FKYC)
+
+Configure to insert a . 
+![11c3h2 Zotero Integration plugin_image_2.png](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_2.png)
+Make sure that Zotero has the Bibliography Style that matches the Bibliography Style selected in Obsidian.
+This will insert a bibliographic entry into a note:
+Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. _Human Factors_, _46_(1), 50–80.
 
 
 ### Configure to create a literature note with metadata and annotations
@@ -125,12 +131,15 @@ Contribution
 ```
 
 ## Add a CSS file to the `snippets` folder  to format callout box color and icons
-The CSS snippets make it possible to change how notes are formatted and the YAML frontmatter `cssclass: literature-note` identifies that literature notes should be formatted differently. The ''.literature-note." in the CSS snippet must match the "cssclass: literature-note"  in the YAML frontmatter. Create a text file with a ".css" extension with the following contents. The following code tailors the color of the callout to the color used to highlight text in Zotero. It also uses a custom icon based on the Lucide library.
+The CSS snippets make it possible to change how notes are formatted and the YAML frontmatter `cssclass: literature-note` identifies that literature notes should be formatted differently. The ''.literature-note." in the CSS snippet must match the "cssclass: literature-note"  in the YAML frontmatter. Create a text file with a ".css" extension with the following contents. 
 
-
+Put the .css snippet file into the "snippets" folder.  This is a hidden folder in the Obsidian Vault folder that can be opened from the folder icon shortcut (Appearance -> scroll down to CSS snippets). The ‘literature-note.css’ should be stored here.Do not need store in the main folder or template folder—all .css snippets go here.
+![11c3h2 Zotero Integration plugin_image_4.png](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_4.png)
+Lucide icons can be used to customize the callouts and are included in the snippet code to demonstrate how this works.
 [Lucide](https://lucide.dev)
-![11c3h2 Zotero Integration plugin_image_4.png|500](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_4.png)
+![11c3h2 Zotero Integration plugin_image_5.png|500](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_5.png)
 
+The following code tailors the color of the callout to the color used to highlight text in Zotero. It also uses a custom icon based on the Lucide library.
 ```
 /* Yellow */
 .literature-note .callout[data-callout-metadata="#ffd400"] {
@@ -171,8 +180,8 @@ When using Zotero to review papers use different colors to highlight passages.  
 - <mark style="background: #ADCCFFA6;">Blue~References to read</mark>
 
 ## Zotero Data explorer to identify fields for template
-There are many other data elements that could be included in the template. The Zotero data explorer shows some of these.
-![11c3h2 Zotero Integration plugin_image_5.png|400](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_5.png)
+There are many other data elements that could be included in the template. The Zotero integraton: Data explorer command shows some of these.
+![11c3h2 Zotero Integration plugin_image_6.png|400](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_6.png)
 
 
 ---
