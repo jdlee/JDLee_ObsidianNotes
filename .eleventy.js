@@ -5,8 +5,14 @@ const matter = require("gray-matter");
 const faviconPlugin = require("eleventy-favicon");
 const tocPlugin = require("eleventy-plugin-nesting-toc");
 const { parse } = require("node-html-parser");
+const htmlMinifier = require("html-minifier");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 const { headerToId, namedHeadingsFilter } = require("./src/helpers/utils");
+const {
+  userMarkdownSetup,
+  userEleventySetup,
+} = require("./src/helpers/userSetup");
 
 const tagRegex = /(^|\s|\>)(#[^\s!@#$%^&*()=+\.,\[{\]};:'"?><]+)(?!([^<]*>))/g;
 
@@ -18,6 +24,9 @@ module.exports = function (eleventyConfig) {
     breaks: true,
     html: true,
   })
+    .use(require("markdown-it-anchor"), {
+      slugify: headerToId,
+    })
     .use(require("markdown-it-mark"))
     .use(require("markdown-it-footnote"))
     .use(function (md) {
@@ -140,23 +149,8 @@ module.exports = function (eleventyConfig) {
 
         return defaultLinkRule(tokens, idx, options, env, self);
       };
-      // Footnote heading fix (till the upstream releases the fix)
-      md.renderer.rules.render_footnote_anchor_name = (
-        tokens,
-        idx,
-        options,
-        env
-      ) => {
-        var n = Number(tokens[idx].meta.id + 1).toString();
-        var prefix = "";
-
-        if (env && typeof env.docId === "string") {
-          prefix = "-" + env.docId + "-";
-        }
-
-        return prefix + n;
-      };
-    });
+    })
+    .use(userMarkdownSetup);
 
   eleventyConfig.setLibrary("md", markdownLib);
 
@@ -192,6 +186,9 @@ module.exports = function (eleventyConfig) {
           const frontMatter = matter(file);
           if (frontMatter.data.permalink) {
             permalink = frontMatter.data.permalink;
+          }
+          if (frontMatter.data.tags && frontMatter.data.tags.indexOf("gardenEntry") != -1) {
+            permalink = "/";
           }
           if (frontMatter.data.noteIcon) {
             noteIcon = frontMatter.data.noteIcon;
@@ -257,7 +254,7 @@ module.exports = function (eleventyConfig) {
         let calloutType = "";
         let isCollapsable;
         let isCollapsed;
-        const calloutMeta = /\[!(\w*)\](\+|\-){0,1}(\s?.*)/;
+        const calloutMeta = /\[!([\w-]*)\](\+|\-){0,1}(\s?.*)/;;
         if (!content.match(calloutMeta)) {
           continue;
         }
@@ -296,6 +293,24 @@ module.exports = function (eleventyConfig) {
     return str && parsed.innerHTML;
   });
 
+  eleventyConfig.addTransform("htmlMinifier", (content, outputPath) => {
+    if (
+      process.env.NODE_ENV === "production" &&
+      outputPath &&
+      outputPath.endsWith(".html")
+    ) {
+      return htmlMinifier.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+        keepClosingSlash: true,
+      });
+    }
+    return content;
+  });
+
   eleventyConfig.addPassthroughCopy("src/site/img");
   eleventyConfig.addPassthroughCopy("src/site/scripts");
   eleventyConfig.addPassthroughCopy("src/site/styles/_theme.*.css");
@@ -303,6 +318,17 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(tocPlugin, {
     ul: true,
     tags: ["h1", "h2", "h3", "h4", "h5", "h6"],
+  });
+  eleventyConfig.addPlugin(pluginRss, {
+    posthtmlRenderOptions: {
+      closingSingleTag: "slash",
+      singleTags: ["link"]
+    }  
+  });
+
+  eleventyConfig.addFilter("dateToZulu", function(date){
+    if(!date) return "";
+    return new Date(date).toISOString("dd-MM-yyyyTHH:mm:ssZ");
   });
   eleventyConfig.addFilter("jsonify", function (variable) {
     return JSON.stringify(variable) || '""';
@@ -316,6 +342,8 @@ module.exports = function (eleventyConfig) {
     }
     return variable;
   });
+
+  userEleventySetup(eleventyConfig);
 
   return {
     dir: {
