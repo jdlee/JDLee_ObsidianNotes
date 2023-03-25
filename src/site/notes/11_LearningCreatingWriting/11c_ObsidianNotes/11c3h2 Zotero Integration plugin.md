@@ -199,8 +199,8 @@ There are many other data elements that could be included in the template. The Z
 ### Tags
 ### Context
 - [[11_LearningCreatingWriting/11c3h Execute code plugin\|11c3h Execute code plugin]]
-- [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h2a Dataview for literature note summary\|11c3h2a Dataview for literature note summary]]
 - [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h Five ways to integrate Zotero and Obsidian\|11c3h Five ways to integrate Zotero and Obsidian]]
+- [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h2a Dataview for literature note summary\|11c3h2a Dataview for literature note summary]]
 
 ### References
 [Zotero Obsidian Integration - Danny Hatcher](https://dannyhatcher.com/zotero-obsidian-integration/)
