@@ -10,6 +10,7 @@
 
 ## Creating and using literature notes
 [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h2 Zotero Integration plugin\|11c3h2 Zotero Integration plugin]]
+[[11_LearningCreatingWriting/11c_ObsidianNotes/11c3i Dataview plugin\|11c3i Dataview plugin]]
 
 ## Abstracting from literature notes to point notes
 
