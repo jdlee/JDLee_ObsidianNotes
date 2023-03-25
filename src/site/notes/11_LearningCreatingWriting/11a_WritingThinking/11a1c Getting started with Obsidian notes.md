@@ -50,9 +50,9 @@ Efficient links between ideas and original sources and between ideas and final p
 Schmidt, J. F. K. (1998). Niklas Luhmann’s Card Index: Thinking Tool, Communication Partner, Publication Machine. In \_Niklas Luhmann-Schriftenverzeichnis" in the sociological journal Soziale Systeme\_ (Vol. 4, pp. 233–263).
 
 ### Context
-- [[11_LearningCreatingWriting/11a_WritingThinking/11a1 Notes as a second brain\|11a1 Notes as a second brain]]
 - [[11_LearningCreatingWriting/11a_WritingThinking/11a10 Writing guidelines\|11a10 Writing guidelines]]
+- [[11_LearningCreatingWriting/11a_WritingThinking/11a1 Notes as a second brain\|11a1 Notes as a second brain]]
 - [[11_LearningCreatingWriting/11a_WritingThinking/11a10a Science of scientific writing\|11a10a Science of scientific writing]]
-- [[11_LearningCreatingWriting/11a_WritingThinking/11a10a Style for successul Medium posts\|11a10a Style for successul Medium posts]]
 - [[11_LearningCreatingWriting/11a_WritingThinking/11a10b What makes Gladwell's writing interesting\|11a10b What makes Gladwell's writing interesting]]
+- [[11_LearningCreatingWriting/11a_WritingThinking/11a10a Style for successul Medium posts\|11a10a Style for successul Medium posts]]
 
