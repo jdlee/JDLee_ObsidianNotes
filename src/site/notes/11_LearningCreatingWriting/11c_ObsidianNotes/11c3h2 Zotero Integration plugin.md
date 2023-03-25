@@ -4,15 +4,17 @@
 
 # Zotero Integration plugin links Zotero to Obsidian for literature notes and citations
 
-The Zotero Integration plugin makes it possible to extract information from Zotero and insert it into Obsidian. 
+The Zotero Integration plugin makes it possible to extract information from Zotero and insert it into Obsidian. See the references at the bottom of this note for video and text-based tutorials that walk through this setup.
 
-This requires that you download and install the BetterBibtext plugin for Zotero. Also enable "Quick Copy" in the Settings>>Export and ensure that the citation style is available in Settings>>Cite.
+The first step is to configure Zotero. Download and install the BetterBibtext plugin for Zotero. Also enable "Quick Copy" in the Settings>>Export and ensure that the citation style is available in Settings>>Cite.
 
-To configure this plugin first download and enable the Zotero Integration plugin for Obsidian. 
+For the Obsidian configuration, first download and enable the Zotero Integration plugin for Obsidian. After enabling Zotero Integration, adjust its settings to enable its two main features: 
+1. Insert citation into a note 
+2. Create a literature note based on Zotero data, including highlighted text and other notations.
 
-After enabling Zotero Integration, adjust its settings to enable its two main features: Insert citation into a note and creating a note based on Zotero data including highlighted text.
-
-Once configured you should be able to choose the Zotero Integration command from the command palette (Command P), which should activate the Zotero search bar. Selecting a reference from the Zotero search should produce either a citation in the current note or create a literature note.
+Once configured you should be able to choose the Zotero Integration command from the command palette (Command P) that should the activate the Zotero search bar. Selecting a reference from the Zotero search should produce either insert a citation in the current note or create a literature note.
+The resulting citation should look something like this:
+Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. _Human Factors_, _46_(1), 50–80.
 
 The resulting literature note should look something like this:
 ![11c3h2 Zotero Integration plugin_image_1.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_1.png)
@@ -24,18 +26,16 @@ The resulting literature notes can be tabulated, sorted, and filtered with datav
 The Zotero Integration plugin can be configured to insert citation information into a note, such as an article bibliography reference or a hyperlink to a Zotero entry.  It can also be configure to insert a new note containing meta data and highlighted text.
 
 ### Configure to insert citation information into a note
-
 Configure to insert a citation key link to a reference in Zotero.  This is useful when you just want to add a citation and connection to a Zotero reference without creating an entire literature note for the reference.
 ![11c3h2 Zotero Integration plugin_image_2.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_2.png)
 This will insert a hyperlink in a note that connects to the Zotero reference:
 [Lee2004](zotero://select/library/items/JCW7FKYC)
 
-Configure to insert a . 
+### Configure to insert a Zotero hyperlink
 ![11c3h2 Zotero Integration plugin_image_2.png](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_2.png)
 Make sure that Zotero has the Bibliography Style that matches the Bibliography Style selected in Obsidian.
 This will insert a bibliographic entry into a note:
 Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. _Human Factors_, _46_(1), 50–80.
-
 
 ### Configure to create a literature note with metadata and annotations
 ![11c3h2 Zotero Integration plugin_image_3.png|600](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_3.png)
@@ -61,7 +61,7 @@ The literature note this template produces consists of YAML front matter and not
 cssclass: literature-note
 title: "{{title}}"
 authors: {{authors}}
-year: {{date | format(”Y”)}}
+year: {{date | format(”YYYY”)}}
 publication: {{publicationTitle}}
 abstract: "{{abstractNote}}"
 ---
@@ -95,16 +95,16 @@ to::
 {%- if color == "#a28ae5" -%}
 Highlight 
 {%- endif -%}
-{%- if color == "#2ea8e5" -%}
-Reference to read 
+{%- if color == "#2ea8e5"  or colorCategory == Blue-%}
+References to read 
 {%- endif -%}
-{%- if color == "#5fb236" -%}
+{%- if color == "#5fb236"  or colorCategory == Green-%}
 Evidence
 {%- endif -%}
-{%- if color == "#ff6666" -%}
+{%- if color == "#ff6666"  or colorCategory == Red-%}
 Limitations
 {%- endif -%}
-{%- if color == "#ffd400" -%}
+{%- if color == "#ffd400" or colorCategory == Yellow-%}
 Contribution 
 {%- endif -%}
 {%- endmacro -%}
@@ -126,7 +126,7 @@ Contribution
 >{{annotation.annotatedText}} [(p. {{annotation.pageLabel}})](zotero://open-pdf/library/items/{{annotation.attachment.itemKey}}?page={{annotation.pageLabel}}&annotation={{annotation.id}}){%- endif -%}
 {%- if annotation.comment %}
 >
->> {{annotation.comment | nl2br}}{%- endif -%}  <br>
+> **{{annotation.comment | nl2br}}**{%- endif -%}  <br>
 {%- endfor %}
 
 {% endfor -%}
@@ -135,7 +135,7 @@ Contribution
 
 ```
 
-## Add a CSS file to the `snippets` folder  to format callout box color and icons
+### Add a CSS file to the `snippets` folder  to format callout box color and icons
 The CSS snippets make it possible to change how notes are formatted and the YAML frontmatter `cssclass: literature-note` identifies that literature notes should be formatted differently. The ''.literature-note." in the CSS snippet must match the "cssclass: literature-note"  in the YAML frontmatter. Create a text file with a ".css" extension with the following contents. 
 
 Put the .css snippet file into the "snippets" folder.  This is a hidden folder in the Obsidian Vault folder that can be opened from the folder icon shortcut (Appearance -> scroll down to CSS snippets). The ‘literature-note.css’ should be stored here.Do not need store in the main folder or template folder—all .css snippets go here.
@@ -177,14 +177,14 @@ The following code tailors the color of the callout to the color used to highlig
 }
 ```
 
-## Use highlight colors to  organize annotations in Zotero
+### Use highlight colors to  organize annotations in Zotero
 When using Zotero to review papers use different colors to highlight passages.  This encouraged a greater depth of processing and helps the future you quickly orient to why certain passages merited highlighting. When highlighting in Zotero the colors of these highlights will be extracted, labeled, and colored in the literature note. Highlights with other PDF readers might not match the Zotero colors and the template will fail to match them to the categories.
 - <mark style="background: #FFF3A3A6;">Yellow~Contributions</mark>
 - <mark style="background: #BBFABBA6;">Green~Evidence</mark>
 - <mark style="background: #FF5582A6;">Red~Limitations </mark>
 - <mark style="background: #ADCCFFA6;">Blue~References to read</mark>
 
-## Zotero Data explorer to identify fields for template
+### Zotero Data explorer to identify fields for template
 There are many other data elements that could be included in the template. The Zotero integraton: Data explorer command shows some of these.
 ![11c3h2 Zotero Integration plugin_image_6.png|400](/img/user/Attachments/11c3h2%20Zotero%20Integration%20plugin_image_6.png)
 
@@ -193,12 +193,15 @@ There are many other data elements that could be included in the template. The Z
 ### Date:: [[ 2023-03-19 \| 2023-03-19 ]]
 ### Revisit::
 ### Links
+[[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h Five ways to integrate Zotero and Obsidian\|11c3h Five ways to integrate Zotero and Obsidian]]
+[[11_LearningCreatingWriting/11a_WritingThinking/11a2b Literature notes--reading for writing\|11a2b Literature notes--reading for writing]]
 
 ### Tags
 ### Context
 - [[11_LearningCreatingWriting/11c3h Execute code plugin\|11c3h Execute code plugin]]
-- [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h Zotero integration\|11c3h Zotero integration]]
 - [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h2a Dataview for literature note summary\|11c3h2a Dataview for literature note summary]]
-
+- [[11_LearningCreatingWriting/11c_ObsidianNotes/11c3h Five ways to integrate Zotero and Obsidian\|11c3h Five ways to integrate Zotero and Obsidian]]
 
 ### References
+[Zotero Obsidian Integration - Danny Hatcher](https://dannyhatcher.com/zotero-obsidian-integration/)
+A video version: [Zotero Obsidian Integration - YouTube](https://www.youtube.com/watch?v=CGGeMrtyjBI)
